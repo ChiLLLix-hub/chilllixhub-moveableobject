@@ -56,7 +56,7 @@ local function MoveObject(objectName, objectData, targetState)
             local newZ = currentCoords.z + (stepZ * i)
             
             SetEntityCoords(obj, newX, newY, newZ, false, false, false, false)
-            Wait(speed * 100)
+            Wait(math.floor(speed * 100))  -- Wait in milliseconds between steps
         end
         
         -- Ensure final position is exact
@@ -274,7 +274,7 @@ function DrawText3D(x, y, z, text)
     SetDrawOrigin(x, y, z, 0)
     DrawText(0.0, 0.0)
     local factor = (string.len(text)) / 370
-    DrawRect(0.0, 0.0+0.0125, 0.017+ factor, 0.03, 0, 0, 0, 75)
+    DrawRect(0.0, 0.0125, 0.017 + factor, 0.03, 0, 0, 0, 75)
     ClearDrawOrigin()
 end
 

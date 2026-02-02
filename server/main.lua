@@ -102,7 +102,8 @@ RegisterNetEvent('moveable-object:server:requestMove', function(objectName)
     TriggerClientEvent('moveable-object:client:syncMove', -1, objectName, newState)
     
     -- Unlock after movement duration (calculated based on distance and speed)
-    local movementDuration = math.ceil((objectConfig.distance / objectConfig.speed) * Config.MovementSteps * 0.001) + 1
+    -- Client-side uses Wait(speed * 100) ms per step
+    local movementDuration = math.ceil(Config.MovementSteps * objectConfig.speed * 100 / 1000) + 1
     SetTimeout(movementDuration * 1000, function()
         ObjectLocks[objectName] = false
         ObjectStates[objectName].isMoving = false
@@ -112,7 +113,7 @@ end)
 -- Admin command to reset object states
 QBCore.Commands.Add('resetobjects', 'Reset all moveable objects (Admin Only)', {}, false, function(source)
     local Player = QBCore.Functions.GetPlayer(source)
-    if Player.PlayerData.job.name == 'admin' or IsPlayerAceAllowed(source, 'command') then
+    if IsPlayerAceAllowed(source, 'command.resetobjects') or IsPlayerAceAllowed(source, 'command') then
         for _, object in ipairs(Config.Objects) do
             ObjectStates[object.name] = {
                 state = object.defaultState or 'closed',
