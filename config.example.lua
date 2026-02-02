@@ -184,4 +184,138 @@ Config.Objects = {
         
         renderDistance = 50.0,
     },
+    
+    -- ====================
+    -- NON-DOOR OBJECTS WITH CUSTOM LABELS
+    -- ====================
+    
+    -- Example 10: Elevator Platform (uses custom state labels)
+    {
+        name = 'warehouse_elevator',
+        label = 'Elevator Platform',
+        object = 'prop_container_01a',
+        coords = vector3(200.0, 300.0, 20.0),
+        heading = 0.0,
+        
+        movementType = 'vertical',
+        distance = 10.0,  -- Elevator travels 10 units up/down
+        speed = 0.03,
+        
+        defaultState = 'closed',  -- 'closed' = ground floor, 'open' = upper floor
+        
+        -- Custom labels for states (not "open/close")
+        stateLabels = {
+            closed = 'Lower',  -- Action to lower the elevator
+            open = 'Raise'     -- Action to raise the elevator
+        },
+        
+        requiresJob = false,
+        requiresItem = false,
+        
+        renderDistance = 60.0,
+    },
+    
+    -- Example 11: Cargo Crane (custom labels)
+    {
+        name = 'dock_crane',
+        label = 'Cargo Crane',
+        object = 'prop_contyard_hook_01',
+        coords = vector3(-100.0, -500.0, 35.0),
+        heading = 0.0,
+        
+        movementType = 'vertical',
+        distance = 15.0,
+        speed = 0.04,
+        
+        defaultState = 'closed',
+        
+        -- Crane-specific labels
+        stateLabels = {
+            closed = 'Lift Up',
+            open = 'Lower Down'
+        },
+        
+        requiresJob = {'dock_worker'},
+        requiresItem = false,
+        
+        renderDistance = 80.0,
+    },
+    
+    -- Example 12: Conveyor Belt (horizontal movement with custom labels)
+    {
+        name = 'factory_conveyor',
+        label = 'Conveyor Belt',
+        object = 'prop_boxpile_02b',
+        coords = vector3(50.0, 150.0, 25.0),
+        heading = 90.0,
+        
+        movementType = 'horizontal',
+        distance = 8.0,
+        speed = 0.06,
+        
+        defaultState = 'closed',
+        
+        -- Conveyor-specific labels
+        stateLabels = {
+            closed = 'Move Forward',
+            open = 'Move Back'
+        },
+        
+        requiresJob = false,
+        requiresItem = false,
+        
+        renderDistance = 50.0,
+    },
+    
+    -- Example 13: Retractable Bridge (horizontal with custom labels)
+    {
+        name = 'castle_bridge',
+        label = 'Castle Bridge',
+        object = 'prop_drawbridge_01',
+        coords = vector3(400.0, 600.0, 15.0),
+        heading = 0.0,
+        
+        movementType = 'horizontal',
+        distance = 6.0,
+        speed = 0.03,
+        
+        defaultState = 'closed',
+        
+        -- Bridge-specific labels
+        stateLabels = {
+            closed = 'Extend',
+            open = 'Retract'
+        },
+        
+        requiresJob = false,
+        requiresItem = 'castle_key',
+        
+        renderDistance = 70.0,
+    },
+    
+    -- Example 14: Moving Platform (vertical with custom labels)
+    {
+        name = 'loading_platform',
+        label = 'Loading Platform',
+        object = 'prop_container_flat',
+        coords = vector3(-200.0, 400.0, 18.0),
+        heading = 0.0,
+        
+        movementType = 'vertical',
+        distance = 5.0,
+        speed = 0.05,
+        
+        defaultState = 'closed',
+        
+        -- Platform-specific labels
+        stateLabels = {
+            closed = 'Raise Platform',
+            open = 'Lower Platform'
+        },
+        
+        requiresJob = {'warehouse'},
+        requiresItem = false,
+        
+        renderDistance = 50.0,
+    },
 }

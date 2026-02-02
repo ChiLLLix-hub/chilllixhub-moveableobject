@@ -73,9 +73,37 @@ Config.Objects = {
 | `distance` | number | How far object moves (in units) |
 | `speed` | number | Movement speed (lower = slower) |
 | `defaultState` | string | Initial state: 'closed' or 'open' |
+| `stateLabels` | table/boolean | Optional: Custom labels for states (e.g., `{closed = 'Lower', open = 'Raise'}`) |
 | `requiresJob` | table/boolean | Job names required for access |
 | `requiresItem` | string/boolean | Item name required for access |
 | `renderDistance` | number | Distance for optimization |
+
+### Custom State Labels
+
+For objects that aren't doors or barriers (like elevators, platforms, cranes, conveyor belts), you can use custom state labels instead of "Open" and "Close":
+
+```lua
+{
+    name = 'warehouse_elevator',
+    label = 'Elevator Platform',
+    -- ... other config ...
+    
+    -- Custom labels make more sense for non-door objects
+    stateLabels = {
+        closed = 'Lower',  -- What happens when moving from closed state
+        open = 'Raise'     -- What happens when moving from open state
+    },
+}
+```
+
+**Examples of custom labels for different object types:**
+- Elevator: `{closed = 'Lower', open = 'Raise'}`
+- Crane: `{closed = 'Lift Up', open = 'Lower Down'}`
+- Conveyor: `{closed = 'Move Forward', open = 'Move Back'}`
+- Bridge: `{closed = 'Extend', open = 'Retract'}`
+- Platform: `{closed = 'Raise Platform', open = 'Lower Platform'}`
+
+If `stateLabels` is not provided, the script will default to using "Open" and "Close" terminology.
 
 ## Usage
 
@@ -86,6 +114,28 @@ Config.Objects = {
 3. Press `E` (or use qb-target) to interact
 4. Object will smoothly move to its alternate position
 5. All nearby players will see synchronized movement
+
+### Use Cases
+
+This script is versatile and can be used for various types of moveable objects:
+
+**Traditional Objects (using default "Open/Close"):**
+- Gates and barriers
+- Doors and sliding doors
+- Vault doors
+- Garage doors
+
+**Non-Traditional Objects (using custom state labels):**
+- Elevators and lifts (`Lower` / `Raise`)
+- Cargo cranes (`Lift Up` / `Lower Down`)
+- Conveyor belts (`Move Forward` / `Move Back`)
+- Retractable bridges (`Extend` / `Retract`)
+- Loading platforms (`Raise Platform` / `Lower Platform`)
+- Moving walls and partitions
+- Adjustable ramps
+- Any object that moves but isn't a door
+
+See `config.example.lua` for detailed examples of both traditional and non-traditional objects.
 
 ### For Administrators
 

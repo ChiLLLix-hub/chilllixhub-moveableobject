@@ -2,6 +2,7 @@ local Translations = {
     interact = {
         open = '[E] Open %{label}',
         close = '[E] Close %{label}',
+        toggle = '[E] %{action} %{label}',
         moving = 'Moving...',
     },
     error = {
@@ -12,6 +13,7 @@ local Translations = {
     success = {
         opened = '%{label} opened',
         closed = '%{label} closed',
+        state_changed = '%{label} %{state}',
     }
 }
 

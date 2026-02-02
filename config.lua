@@ -30,6 +30,9 @@ Config.Objects = {
         -- Initial state
         defaultState = 'closed', -- 'closed' or 'open'
         
+        -- Optional: Custom state labels (for objects that aren't doors/barriers)
+        -- stateLabels = {closed = 'Lowered', open = 'Raised'},
+        
         -- Optional: Restricted access
         requiresJob = false, -- Set to table of job names to restrict, e.g., {'police', 'ambulance'}
         requiresItem = false, -- Set to item name to require item in inventory
