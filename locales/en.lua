@@ -13,7 +13,7 @@ local Translations = {
     success = {
         opened = '%{label} opened',
         closed = '%{label} closed',
-        state_changed = '%{label} %{action}',
+        state_changed = '%{action} %{label}',
     }
 }
 
