@@ -89,9 +89,10 @@ For objects that aren't doors or barriers (like elevators, platforms, cranes, co
     -- ... other config ...
     
     -- Custom labels make more sense for non-door objects
+    -- The label for each state is the action to move TO that state
     stateLabels = {
-        closed = 'Lower',  -- Action shown when moving TO closed state (ground floor)
-        open = 'Raise'     -- Action shown when moving TO open state (upper floor)
+        closed = 'Lower',  -- Action to move TO closed state (shown when currently open)
+        open = 'Raise'     -- Action to move TO open state (shown when currently closed)
     },
 }
 ```

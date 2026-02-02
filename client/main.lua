@@ -156,8 +156,17 @@ RegisterNetEvent('moveable-object:client:syncMove', function(objectName, newStat
                 
                 -- Notify player with custom labels if provided
                 if objectData.stateLabels then
-                    local stateLabel = objectData.stateLabels[newState] or newState
-                    QBCore.Functions.Notify(Lang:t('success.state_changed', {label = objectData.label, state = stateLabel}), 'success')
+                    local stateLabel = objectData.stateLabels[newState]
+                    if stateLabel then
+                        QBCore.Functions.Notify(Lang:t('success.state_changed', {label = objectData.label, state = stateLabel}), 'success')
+                    else
+                        -- Fallback to default if label not defined
+                        if newState == 'open' then
+                            QBCore.Functions.Notify(Lang:t('success.opened', {label = objectData.label}), 'success')
+                        else
+                            QBCore.Functions.Notify(Lang:t('success.closed', {label = objectData.label}), 'success')
+                        end
+                    end
                 else
                     if newState == 'open' then
                         QBCore.Functions.Notify(Lang:t('success.opened', {label = objectData.label}), 'success')

@@ -204,9 +204,10 @@ Config.Objects = {
         defaultState = 'closed',  -- 'closed' = ground floor, 'open' = upper floor
         
         -- Custom labels for states (not "open/close")
+        -- The label for each state is the action to move TO that state
         stateLabels = {
-            closed = 'Lower',  -- Action to return TO ground floor (closed state)
-            open = 'Raise'     -- Action to go TO upper floor (open state)
+            closed = 'Lower',  -- Action to move TO closed/ground (shown when at upper floor)
+            open = 'Raise'     -- Action to move TO open/upper (shown when at ground floor)
         },
         
         requiresJob = false,
@@ -227,12 +228,12 @@ Config.Objects = {
         distance = 15.0,
         speed = 0.04,
         
-        defaultState = 'closed',
+        defaultState = 'closed',  -- 'closed' = hook up (resting), 'open' = hook down (working)
         
         -- Crane-specific labels
         stateLabels = {
-            closed = 'Lift Up',      -- Action to move TO raised position (closed state)
-            open = 'Lower Down'      -- Action to move TO lowered position (open state)
+            closed = 'Lift Up',      -- Action to move TO closed/up (shown when hook is down)
+            open = 'Lower Down'      -- Action to move TO open/down (shown when hook is up)
         },
         
         requiresJob = {'dock_worker'},
@@ -253,12 +254,12 @@ Config.Objects = {
         distance = 8.0,
         speed = 0.06,
         
-        defaultState = 'closed',
+        defaultState = 'closed',  -- 'closed' = starting position, 'open' = forward position
         
         -- Conveyor-specific labels
         stateLabels = {
-            closed = 'Move Back',      -- Action to move TO starting position (closed state)
-            open = 'Move Forward'      -- Action to move TO forward position (open state)
+            closed = 'Move Back',      -- Action to move TO closed/start (shown when forward)
+            open = 'Move Forward'      -- Action to move TO open/forward (shown when at start)
         },
         
         requiresJob = false,
@@ -279,12 +280,12 @@ Config.Objects = {
         distance = 6.0,
         speed = 0.03,
         
-        defaultState = 'closed',
+        defaultState = 'closed',  -- 'closed' = retracted, 'open' = extended
         
         -- Bridge-specific labels
         stateLabels = {
-            closed = 'Retract',        -- Action to move TO retracted position (closed state)
-            open = 'Extend'            -- Action to move TO extended position (open state)
+            closed = 'Retract',        -- Action to move TO closed/retracted (shown when extended)
+            open = 'Extend'            -- Action to move TO open/extended (shown when retracted)
         },
         
         requiresJob = false,
@@ -305,12 +306,12 @@ Config.Objects = {
         distance = 5.0,
         speed = 0.05,
         
-        defaultState = 'closed',
+        defaultState = 'closed',  -- 'closed' = lowered, 'open' = raised
         
         -- Platform-specific labels
         stateLabels = {
-            closed = 'Lower Platform',  -- Action to move TO lowered position (closed state)
-            open = 'Raise Platform'     -- Action to move TO raised position (open state)
+            closed = 'Lower Platform',  -- Action to move TO closed/lowered (shown when raised)
+            open = 'Raise Platform'     -- Action to move TO open/raised (shown when lowered)
         },
         
         requiresJob = {'warehouse'},
