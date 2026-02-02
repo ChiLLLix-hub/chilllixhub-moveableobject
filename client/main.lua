@@ -154,11 +154,25 @@ RegisterNetEvent('moveable-object:client:syncMove', function(objectName, newStat
             if objectData.name == objectName then
                 MoveObject(objectName, objectData, newState)
                 
-                -- Notify player
-                if newState == 'open' then
-                    QBCore.Functions.Notify(Lang:t('success.opened', {label = objectData.label}), 'success')
+                -- Notify player with custom labels if provided
+                if objectData.stateLabels then
+                    local actionLabel = objectData.stateLabels[newState]
+                    if actionLabel then
+                        QBCore.Functions.Notify(Lang:t('success.state_changed', {label = objectData.label, action = actionLabel}), 'success')
+                    else
+                        -- Fallback to default if label not defined
+                        if newState == 'open' then
+                            QBCore.Functions.Notify(Lang:t('success.opened', {label = objectData.label}), 'success')
+                        else
+                            QBCore.Functions.Notify(Lang:t('success.closed', {label = objectData.label}), 'success')
+                        end
+                    end
                 else
-                    QBCore.Functions.Notify(Lang:t('success.closed', {label = objectData.label}), 'success')
+                    if newState == 'open' then
+                        QBCore.Functions.Notify(Lang:t('success.opened', {label = objectData.label}), 'success')
+                    else
+                        QBCore.Functions.Notify(Lang:t('success.closed', {label = objectData.label}), 'success')
+                    end
                 end
                 break
             end
@@ -228,7 +242,20 @@ else
                     sleep = 0
                     
                     local currentState = ObjectStates[objectData.name] or 'closed'
-                    local text = currentState == 'closed' and Lang:t('interact.open', {label = objectData.label}) or Lang:t('interact.close', {label = objectData.label})
+                    local text
+                    
+                    -- Use custom state labels if provided, otherwise use default open/close
+                    if objectData.stateLabels then
+                        local nextState = currentState == 'closed' and 'open' or 'closed'
+                        local actionLabel = objectData.stateLabels[nextState]
+                        if actionLabel then
+                            text = Lang:t('interact.toggle', {action = actionLabel, label = objectData.label})
+                        else
+                            text = currentState == 'closed' and Lang:t('interact.open', {label = objectData.label}) or Lang:t('interact.close', {label = objectData.label})
+                        end
+                    else
+                        text = currentState == 'closed' and Lang:t('interact.open', {label = objectData.label}) or Lang:t('interact.close', {label = objectData.label})
+                    end
                     
                     if not isMoving[objectData.name] then
                         DrawText3D(objectData.coords.x, objectData.coords.y, objectData.coords.z + 1.0, text)

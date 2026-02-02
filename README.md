@@ -73,9 +73,38 @@ Config.Objects = {
 | `distance` | number | How far object moves (in units) |
 | `speed` | number | Movement speed (lower = slower) |
 | `defaultState` | string | Initial state: 'closed' or 'open' |
+| `stateLabels` | table/boolean | Optional: Custom labels for states (e.g., `{closed = 'Lower', open = 'Raise'}`) |
 | `requiresJob` | table/boolean | Job names required for access |
 | `requiresItem` | string/boolean | Item name required for access |
 | `renderDistance` | number | Distance for optimization |
+
+### Custom State Labels
+
+For objects that aren't doors or barriers (like elevators, platforms, cranes, conveyor belts), you can use custom state labels instead of "Open" and "Close":
+
+```lua
+{
+    name = 'warehouse_elevator',
+    label = 'Elevator Platform',
+    -- ... other config ...
+    
+    -- Custom labels make more sense for non-door objects
+    -- The label for each state is the action to move TO that state
+    stateLabels = {
+        closed = 'Lower',  -- Action to move TO closed state (shown when currently open)
+        open = 'Raise'     -- Action to move TO open state (shown when currently closed)
+    },
+}
+```
+
+**Examples of custom labels for different object types:**
+- Elevator: `{closed = 'Lower', open = 'Raise'}`
+- Crane: `{closed = 'Lift Up', open = 'Lower Down'}`
+- Conveyor: `{closed = 'Move Back', open = 'Move Forward'}`
+- Bridge: `{closed = 'Retract', open = 'Extend'}`
+- Platform: `{closed = 'Lower Platform', open = 'Raise Platform'}`
+
+If `stateLabels` is not provided, the script will default to using "Open" and "Close" terminology.
 
 ## Usage
 
@@ -86,6 +115,28 @@ Config.Objects = {
 3. Press `E` (or use qb-target) to interact
 4. Object will smoothly move to its alternate position
 5. All nearby players will see synchronized movement
+
+### Use Cases
+
+This script is versatile and can be used for various types of moveable objects:
+
+**Traditional Objects (using default "Open/Close"):**
+- Gates and barriers
+- Doors and sliding doors
+- Vault doors
+- Garage doors
+
+**Non-Traditional Objects (using custom state labels):**
+- Elevators and lifts (`closed = 'Lower'` / `open = 'Raise'`)
+- Cargo cranes (`closed = 'Lift Up'` / `open = 'Lower Down'`)
+- Conveyor belts (`closed = 'Move Back'` / `open = 'Move Forward'`)
+- Retractable bridges (`closed = 'Retract'` / `open = 'Extend'`)
+- Loading platforms (`closed = 'Lower Platform'` / `open = 'Raise Platform'`)
+- Moving walls and partitions
+- Adjustable ramps
+- Any object that moves but isn't a door
+
+See `config.example.lua` for detailed examples of both traditional and non-traditional objects.
 
 ### For Administrators
 
