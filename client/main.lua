@@ -156,9 +156,9 @@ RegisterNetEvent('moveable-object:client:syncMove', function(objectName, newStat
                 
                 -- Notify player with custom labels if provided
                 if objectData.stateLabels then
-                    local stateLabel = objectData.stateLabels[newState]
-                    if stateLabel then
-                        QBCore.Functions.Notify(Lang:t('success.state_changed', {label = objectData.label, state = stateLabel}), 'success')
+                    local actionLabel = objectData.stateLabels[newState]
+                    if actionLabel then
+                        QBCore.Functions.Notify(Lang:t('success.state_changed', {label = objectData.label, action = actionLabel}), 'success')
                     else
                         -- Fallback to default if label not defined
                         if newState == 'open' then
@@ -247,8 +247,12 @@ else
                     -- Use custom state labels if provided, otherwise use default open/close
                     if objectData.stateLabels then
                         local nextState = currentState == 'closed' and 'open' or 'closed'
-                        local actionLabel = objectData.stateLabels[nextState] or (nextState == 'open' and 'Open' or 'Close')
-                        text = Lang:t('interact.toggle', {action = actionLabel, label = objectData.label})
+                        local actionLabel = objectData.stateLabels[nextState]
+                        if actionLabel then
+                            text = Lang:t('interact.toggle', {action = actionLabel, label = objectData.label})
+                        else
+                            text = currentState == 'closed' and Lang:t('interact.open', {label = objectData.label}) or Lang:t('interact.close', {label = objectData.label})
+                        end
                     else
                         text = currentState == 'closed' and Lang:t('interact.open', {label = objectData.label}) or Lang:t('interact.close', {label = objectData.label})
                     end
