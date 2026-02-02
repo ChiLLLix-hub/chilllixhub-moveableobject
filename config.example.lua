@@ -205,8 +205,8 @@ Config.Objects = {
         
         -- Custom labels for states (not "open/close")
         stateLabels = {
-            closed = 'Lower',  -- Action to lower the elevator
-            open = 'Raise'     -- Action to raise the elevator
+            closed = 'Lower',  -- Action to return TO ground floor (closed state)
+            open = 'Raise'     -- Action to go TO upper floor (open state)
         },
         
         requiresJob = false,
@@ -231,8 +231,8 @@ Config.Objects = {
         
         -- Crane-specific labels
         stateLabels = {
-            closed = 'Lift Up',
-            open = 'Lower Down'
+            closed = 'Lift Up',      -- Action to move TO raised position (closed state)
+            open = 'Lower Down'      -- Action to move TO lowered position (open state)
         },
         
         requiresJob = {'dock_worker'},
@@ -257,8 +257,8 @@ Config.Objects = {
         
         -- Conveyor-specific labels
         stateLabels = {
-            closed = 'Move Forward',
-            open = 'Move Back'
+            closed = 'Move Back',      -- Action to move TO starting position (closed state)
+            open = 'Move Forward'      -- Action to move TO forward position (open state)
         },
         
         requiresJob = false,
@@ -283,8 +283,8 @@ Config.Objects = {
         
         -- Bridge-specific labels
         stateLabels = {
-            closed = 'Extend',
-            open = 'Retract'
+            closed = 'Retract',        -- Action to move TO retracted position (closed state)
+            open = 'Extend'            -- Action to move TO extended position (open state)
         },
         
         requiresJob = false,
@@ -309,8 +309,8 @@ Config.Objects = {
         
         -- Platform-specific labels
         stateLabels = {
-            closed = 'Raise Platform',
-            open = 'Lower Platform'
+            closed = 'Lower Platform',  -- Action to move TO lowered position (closed state)
+            open = 'Raise Platform'     -- Action to move TO raised position (open state)
         },
         
         requiresJob = {'warehouse'},

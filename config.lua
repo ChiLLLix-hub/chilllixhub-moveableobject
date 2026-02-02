@@ -31,7 +31,8 @@ Config.Objects = {
         defaultState = 'closed', -- 'closed' or 'open'
         
         -- Optional: Custom state labels (for objects that aren't doors/barriers)
-        -- stateLabels = {closed = 'Lowered', open = 'Raised'},
+        -- Use this for elevators, platforms, cranes, etc.
+        -- stateLabels = {closed = 'Lower', open = 'Raise'},  -- Label = action to move TO that state
         
         -- Optional: Restricted access
         requiresJob = false, -- Set to table of job names to restrict, e.g., {'police', 'ambulance'}

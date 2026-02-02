@@ -90,8 +90,8 @@ For objects that aren't doors or barriers (like elevators, platforms, cranes, co
     
     -- Custom labels make more sense for non-door objects
     stateLabels = {
-        closed = 'Lower',  -- What happens when moving from closed state
-        open = 'Raise'     -- What happens when moving from open state
+        closed = 'Lower',  -- Action shown when moving TO closed state (ground floor)
+        open = 'Raise'     -- Action shown when moving TO open state (upper floor)
     },
 }
 ```
@@ -99,9 +99,9 @@ For objects that aren't doors or barriers (like elevators, platforms, cranes, co
 **Examples of custom labels for different object types:**
 - Elevator: `{closed = 'Lower', open = 'Raise'}`
 - Crane: `{closed = 'Lift Up', open = 'Lower Down'}`
-- Conveyor: `{closed = 'Move Forward', open = 'Move Back'}`
-- Bridge: `{closed = 'Extend', open = 'Retract'}`
-- Platform: `{closed = 'Raise Platform', open = 'Lower Platform'}`
+- Conveyor: `{closed = 'Move Back', open = 'Move Forward'}`
+- Bridge: `{closed = 'Retract', open = 'Extend'}`
+- Platform: `{closed = 'Lower Platform', open = 'Raise Platform'}`
 
 If `stateLabels` is not provided, the script will default to using "Open" and "Close" terminology.
 
@@ -126,11 +126,11 @@ This script is versatile and can be used for various types of moveable objects:
 - Garage doors
 
 **Non-Traditional Objects (using custom state labels):**
-- Elevators and lifts (`Lower` / `Raise`)
-- Cargo cranes (`Lift Up` / `Lower Down`)
-- Conveyor belts (`Move Forward` / `Move Back`)
-- Retractable bridges (`Extend` / `Retract`)
-- Loading platforms (`Raise Platform` / `Lower Platform`)
+- Elevators and lifts (`closed = 'Lower'` / `open = 'Raise'`)
+- Cargo cranes (`closed = 'Lift Up'` / `open = 'Lower Down'`)
+- Conveyor belts (`closed = 'Move Back'` / `open = 'Move Forward'`)
+- Retractable bridges (`closed = 'Retract'` / `open = 'Extend'`)
+- Loading platforms (`closed = 'Lower Platform'` / `open = 'Raise Platform'`)
 - Moving walls and partitions
 - Adjustable ramps
 - Any object that moves but isn't a door
